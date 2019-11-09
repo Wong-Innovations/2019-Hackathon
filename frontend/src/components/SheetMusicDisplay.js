@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-
 import OpenSheetMusicDisplay from '../lib/OpenSheetMusicDisplay'
+
 
 class SheetMusicDisplay extends Component {
     constructor(props) {

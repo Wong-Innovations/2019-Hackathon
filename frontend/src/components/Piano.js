@@ -17,8 +17,8 @@ const useStyles = makeStyles(theme => ({
 
 export default function PianoComponent() {
     const classes = useStyles();
-    const firstNote = MidiNumbers.fromNote('c3');
-    const lastNote = MidiNumbers.fromNote('f5');
+    const firstNote = MidiNumbers.fromNote('a3');
+    const lastNote = MidiNumbers.fromNote('c6');
     const keyboardShortcuts = KeyboardShortcuts.create({
         firstNote: firstNote,
         lastNote: lastNote,
