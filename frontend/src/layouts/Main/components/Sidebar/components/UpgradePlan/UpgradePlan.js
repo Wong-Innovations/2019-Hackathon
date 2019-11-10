@@ -4,8 +4,6 @@ import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/styles';
 import { Typography, Button, colors } from '@material-ui/core';
 
-import MusicNoteIcon from '@material-ui/icons/MusicNote';
-
 const useStyles = makeStyles(theme => ({
   root: {
     backgroundColor: colors.grey[50]
@@ -41,6 +39,7 @@ const UpgradePlan = props => {
     >
       <div className={classes.media}>
         <img
+          alt="SheetLearn"
           src="TrebleClef.png"
         />
       </div>

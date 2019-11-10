@@ -139,6 +139,10 @@
 .SheetMusicClass {
   margin: auto;
   width: 80%;
-  border: 3px solid red;
+  background-color: white;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
 
+body {
+  background-color: #f4f6f8;
 }
