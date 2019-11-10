@@ -95,7 +95,7 @@ def eval_fitness(genomes, config):
           read_too_many[x] += 1
         else:
           note_class = Note(bar[ge_note_index[x]][2][0])
-          note_level = notes.note_to_int(note_class.name) + 11 * note_class.octave
+          note_level = decode_note(str(note_class))
 
           output = nets[x].activate((bar[ge_note_index[x]][1], note_level, beat_time, 4, 4, read_forward))
           if read_forward:
@@ -143,25 +143,22 @@ def eval_fitness(genomes, config):
           if output[18] > 0.5:
             read_forward = True
 
-        if time % ACCURACY == 0:
-          beat += 1
-
-          beat_time = 0
-        
-        if time == end_time:
-          note_index += 1
-
-          if note_index >= note_count_bar:
-            raise Exception("You fucking donkey")
-
-          start_time = time
-          end_time = start_time + (4 * ACCURACY) / bar[note_index][1]
-
-          start_count = 0
-          end_count = 0
-
-        time += 1
+      if time % ACCURACY == 0:
         beat += 1
+
+        beat_time = 0
+      
+      if time == end_time:
+        start_time = time
+        end_time = start_time + (4 * ACCURACY) / bar[note_index][1]
+
+        start_count = 0
+        end_count = 0
+
+        note_index += 1
+
+      time += 1
+      beat += 1
   
   for x, g in enumerate(ge):
     average_ratio = sum_ratios[x] / note_count
@@ -169,7 +166,9 @@ def eval_fitness(genomes, config):
 
     weighted_accuracy = note_count * accuracy
 
-    fitness = (weighted_accuracy - extra_notes[x]) / note_count
+    fitness = (weighted_accuracy - extra_notes[x] + pitch_scores[x]) / note_count
+
+    fitness -= 500 * read_too_many[x]
 
     ge[x].fitness = fitness
   
@@ -207,16 +206,26 @@ def pitch_score(level: int, pitch_output):
   return sum
 
 def expected_pitch_output(level: int):
-  index = level - 41
+  index = level
 
   vector = [0] * 17
-
-  print(vector)
-  print(index)
 
   vector[index] = 1
 
   return vector
+
+def decode_note(note_):
+  notes = ["'A-3'", "'B-3'", "'C-4'", "'D-4'", "'E-4'", "'F-4'", "'G-4'", "'A-4'", "'B-4'", "'C-5'", "'D-5'", "'E-5'", "'F-5'", "'G-5'", "'A-5'", "'B-5'", "'C-6'"]
+
+  index = None
+
+  x = 0
+  for note in notes:
+    if note == note_:
+      index = x
+    x += 1
+
+  return index
 
 if __name__ == "__main__":
   local_dir = os.path.dirname(__file__)
