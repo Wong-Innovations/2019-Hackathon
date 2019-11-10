@@ -21,6 +21,8 @@ import HelpIcon from '@material-ui/icons/Help';
 import SettingsIcon from '@material-ui/icons/Settings';
 import InfoIcon from '@material-ui/icons/Info';
 
+import SidebarNav from './SidebarNav/SidebarNav';
+
 const useStyles = makeStyles(theme => ({
     root: {
         flexGrow: 1,
@@ -37,6 +39,9 @@ const useStyles = makeStyles(theme => ({
     fullList: {
         width: 'auto',
     },
+    nav: {
+        marginBottom: theme.spacing(2)
+      }
 }));
 
 export default function Header() {
@@ -47,6 +52,36 @@ export default function Header() {
         bottom: false,
         right: false,
     });
+
+    const pages = [
+        {
+          title: 'Dashboard',
+          href: '/dashboard',
+          icon: <MusicNoteIcon />
+        },
+        {
+          title: 'Users',
+          href: '/users',
+          icon: <InsertChartIcon />
+        },
+        {
+          title: 'Products',
+          href: '/products',
+          icon: <HelpIcon />
+        },
+        {
+          title: 'Authentication',
+          href: '/sign-in',
+          icon: <SettingsIcon />
+        },
+        {
+          title: 'Typography',
+          href: '/typography',
+          icon: <InfoIcon />
+        }
+      ];
+    
+
     const toggleDrawer = (side, open) => event => {
         if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
             return;
@@ -62,66 +97,10 @@ export default function Header() {
             onClick={toggleDrawer(side, false)}
             onKeyDown={toggleDrawer(side, false)}
         >
-            <List>
-                <ListItem button>
-                    <ListItemIcon> <MusicNoteIcon /> </ListItemIcon>
-                    <ListItemText primary="Learn" />
-                </ListItem>
-                <ListItem button>
-                    <ListItemIcon> <InsertChartIcon /> </ListItemIcon>
-                    <ListItemText primary="Results" />
-                </ListItem>
-            </List>
-            <Divider />
-            <List>
-                <ListItem button>
-                    <ListItemIcon> <HelpIcon /> </ListItemIcon>
-                    <ListItemText primary="Help" />
-                </ListItem>
-                <ListItem button>
-                    <ListItemIcon> <SettingsIcon /> </ListItemIcon>
-                    <ListItemText primary="Settings" />
-                </ListItem>
-                <ListItem button>
-                    <ListItemIcon> <InfoIcon /> </ListItemIcon>
-                    <ListItemText primary="About" />
-                </ListItem>
-            </List>
-        </div>
-    );
-
-    const fullList = side => (
-        <div
-            className={classes.fullList}
-            role="presentation"
-            onClick={toggleDrawer(side, false)}
-            onKeyDown={toggleDrawer(side, false)}
-        >
-            <List>
-                <ListItem button>
-                    <ListItemIcon> <MusicNoteIcon /> </ListItemIcon>
-                    <ListItemText primary="Learn" />
-                </ListItem>
-                <ListItem button>
-                    <ListItemIcon> <InsertChartIcon /> </ListItemIcon>
-                    <ListItemText primary="Results" />
-                </ListItem>
-            </List>
-            <Divider />
-            <List>
-                <ListItem button>
-                    <ListItemIcon> <HelpIcon /> </ListItemIcon>
-                    <ListItemText primary="Help" />
-                </ListItem>
-                <ListItem button>
-                    <ListItemIcon> <SettingsIcon /> </ListItemIcon>
-                    <ListItemText primary="Settings" />
-                </ListItem>
-                <ListItem button>
-                    <ListItemIcon> <InfoIcon /> </ListItemIcon>
-                    <ListItemText primary="About" />
-                </ListItem>
-            </List>
+            <SidebarNav
+          className={classes.nav}
+          pages={pages}
+        />
         </div>
     );
 
