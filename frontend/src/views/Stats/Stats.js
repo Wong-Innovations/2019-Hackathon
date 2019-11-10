@@ -5,10 +5,9 @@ import { Grid } from '@material-ui/core';
 import {
   CorrectNotes,
   MissedNotes,
-  TasksProgress,
-  TotalProfit,
-  LatestSales,
-  UsersByDevice,
+  PianoMastery,
+  TotalNotes,
+  Progress,
 } from './components';
 
 const useStyles = makeStyles(theme => ({
@@ -51,7 +50,7 @@ const Stats = () => {
           xl={3}
           xs={12}
         >
-          <TasksProgress />
+          <PianoMastery />
         </Grid>
         <Grid
           item
@@ -60,41 +59,16 @@ const Stats = () => {
           xl={3}
           xs={12}
         >
-          <TotalProfit />
+          <TotalNotes />
         </Grid>
         <Grid
           item
-          lg={8}
+          lg={12}
           md={12}
-          xl={9}
+          xl={12}
           xs={12}
         >
-          <LatestSales />
-        </Grid>
-        <Grid
-          item
-          lg={4}
-          md={6}
-          xl={3}
-          xs={12}
-        >
-          <UsersByDevice />
-        </Grid>
-        <Grid
-          item
-          lg={4}
-          md={6}
-          xl={3}
-          xs={12}
-        >
-        </Grid>
-        <Grid
-          item
-          lg={8}
-          md={12}
-          xl={9}
-          xs={12}
-        >
+          <Progress />
         </Grid>
       </Grid>
     </div>

@@ -6,6 +6,12 @@ import '../../App.css';
 import * as WebMidi from "webmidi";
 import SheetMusicDisplay from './components/SheetMusicDisplay';
 import PianoComponent from './components/Piano';
+import { makeStyles } from '@material-ui/styles';
+
+const useStyles = makeStyles(() => ({
+    spacing: {
+        height: 40
+  }}));
 
 
 function Learn() {
@@ -24,8 +30,10 @@ function Learn() {
         }
         
     });
+    const classes = useStyles();
     return (
         <div>
+            <div className={classes.spacing}></div>
             <SheetMusicDisplay />
             <PianoComponent midiPresent={midiPresent} />
         </div>

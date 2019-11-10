@@ -3,8 +3,8 @@ import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/styles';
 import { Card, CardContent, Grid, Typography, Avatar } from '@material-ui/core';
-import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
-import PeopleIcon from '@material-ui/icons/PeopleOutlined';
+import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
+import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
 //import { MissedNotes } from '..';
 
 const useStyles = makeStyles(theme => ({
@@ -19,7 +19,7 @@ const useStyles = makeStyles(theme => ({
     fontWeight: 700
   },
   avatar: {
-    backgroundColor: theme.palette.success.main,
+    backgroundColor: theme.palette.error.main,
     height: 56,
     width: 56
   },
@@ -63,18 +63,18 @@ const MissedNotes = props => {
               gutterBottom
               variant="body2"
             >
-              TOTAL USERS
+              MISSED NOTES
             </Typography>
-            <Typography variant="h3">1,600</Typography>
+            <Typography variant="h3">216</Typography>
           </Grid>
           <Grid item>
             <Avatar className={classes.avatar}>
-              <PeopleIcon className={classes.icon} />
+              <ErrorOutlineIcon className={classes.icon} />
             </Avatar>
           </Grid>
         </Grid>
         <div className={classes.difference}>
-          <ArrowUpwardIcon className={classes.differenceIcon} />
+          <ArrowDownwardIcon className={classes.differenceIcon} />
           <Typography
             className={classes.differenceValue}
             variant="body2"
