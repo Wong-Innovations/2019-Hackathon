@@ -3,8 +3,9 @@ import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/styles';
 import { Card, CardContent, Grid, Typography, Avatar } from '@material-ui/core';
-import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
-import MoneyIcon from '@material-ui/icons/Money';
+import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
+import CheckIcon from '@material-ui/icons/Check';
+
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -18,7 +19,7 @@ const useStyles = makeStyles(theme => ({
     fontWeight: 700
   },
   avatar: {
-    backgroundColor: theme.palette.error.main,
+    backgroundColor: theme.palette.success.main,
     height: 56,
     width: 56
   },
@@ -32,10 +33,10 @@ const useStyles = makeStyles(theme => ({
     alignItems: 'center'
   },
   differenceIcon: {
-    color: theme.palette.error.dark
+    color: theme.palette.success.dark
   },
   differenceValue: {
-    color: theme.palette.error.dark,
+    color: theme.palette.success.dark,
     marginRight: theme.spacing(1)
   }
 }));
@@ -68,12 +69,12 @@ const CorrectNotes = props => {
           </Grid>
           <Grid item>
             <Avatar className={classes.avatar}>
-              <MoneyIcon className={classes.icon} />
+              <CheckIcon className={classes.icon} />
             </Avatar>
           </Grid>
         </Grid>
         <div className={classes.difference}>
-          <ArrowDownwardIcon className={classes.differenceIcon} />
+          <ArrowUpwardIcon className={classes.differenceIcon} />
           <Typography
             className={classes.differenceValue}
             variant="body2"
