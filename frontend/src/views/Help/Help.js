@@ -6,7 +6,7 @@ import React from 'react';
 function Help() {
     return (
         <div>
-            <hq>Help</hq>
+            Help
         </div>
     );
 }
