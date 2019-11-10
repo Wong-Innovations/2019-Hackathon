@@ -51,7 +51,7 @@ const Topbar = props => {
             </a>
           </Tooltip>
           <Tooltip title="Share Us On Insta!" aria-label="Share Us On Insta!">
-            <a href="https://insta.com" style={{color: "white"}}>
+            <a href="https://instagram.com" style={{color: "white"}}>
               <FontAwesomeIcon size="2x" icon={faInstagram} style={{marginLeft:"20px"}} />
             </a>
           </Tooltip>
