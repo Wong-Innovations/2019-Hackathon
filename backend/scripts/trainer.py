@@ -46,12 +46,8 @@ ACCURACY = 100
 def eval_fitness(genomes, config):
   nets = []
   ge = []
-  ge_bar = []
-  ge_note_index = []
-  sum_ratios = []
-  extra_notes = []
-  read_too_many = []
   pitch_scores = []
+  duration_ratios = []
 
   song = generate_song(5)
 
@@ -59,12 +55,8 @@ def eval_fitness(genomes, config):
     net = neat.nn.FeedForwardNetwork.create(g, config)
     nets.append(net)
     ge.append(g)
-    sum_ratios.append(0)
-    extra_notes.append(0)
-    read_too_many.append(0)
-    ge_bar.append(None)
-    ge_note_index.append(None)
     pitch_scores.append(0)
+    duration_ratios.append(0)
 
   note_count = 0
   for bar_class in song:
@@ -72,103 +64,34 @@ def eval_fitness(genomes, config):
     note_count_bar = len(bar)
     note_count += note_count_bar
 
-    note_index = 0
-
-    start_time = 0
-    end_time = start_time + ((4 * ACCURACY) / bar[0][1])
-
-    for x, _ in enumerate(ge):
-      ge_bar[x] = bar
-      ge_note_index[x] = 0
-
-    start_count = 0
-    end_count = 0
-
-    read_forward = False
-
-    time = 0
-    beat = 0
-    beat_time = 0
-    for _ in range(4 * ACCURACY):
+    for note in bar:
       for x, _ in enumerate(ge):
-        if ge_note_index[x] >= note_count_bar:
-          read_too_many[x] += 1
-        else:
-          note_class = Note(bar[ge_note_index[x]][2][0])
-          note_level = decode_note(str(note_class))
+        note_class = Note(note[2][0])
+        note_level = decode_note(str(note_class))
 
-          output = nets[x].activate((bar[ge_note_index[x]][1], note_level, beat_time, 4, 4, read_forward))
-          if read_forward:
-            ge_note_index[x] += 1
-            read_forward = False
+        duration = note[1]
 
-          if output[0] > 0.5:
-            pitch_output = []
-            for neuron in output[1:]:
-              pitch_output.append(neuron)
-            
-            score = pitch_score(note_level, pitch_output) - 1
+        output = nets[x].activate((duration, note_level))
 
-            pitch_scores[x] += score
+        duration_ratios[x] += float(abs(output[0] - duration)) / float(duration)
 
-            start_note = start_count == end_count
-            end_note = start_count > end_count
+        pitch_output = []
 
-            if start_note:
-              start_count += 1
-            elif end_note:
-              end_count += 1
-            else:
-              raise Exception("You fucking donkey")
+        for neuron in output[1:]:
+          pitch_output.append(neuron)
+        
+        score = pitch_score(note_level, pitch_output)
 
-            distance = 0
-            from_begin = abs(time - start_time)
-            from_end = abs(time - end_time)
-            note_length = end_time - start_time
-
-            if from_begin < from_end:
-              distance = from_begin
-            else:
-              distance = from_end
-
-            multiple_notes = start_count >= 2 and end_count >= 2
-
-            if not multiple_notes:
-              ratio = float(distance) / float(note_length)
-
-              sum_ratios[x] += ratio
-            else:
-              extra_notes[x] += 1
-          
-          if output[18] > 0.5:
-            read_forward = True
-
-      if time % ACCURACY == 0:
-        beat += 1
-
-        beat_time = 0
-      
-      if time == end_time:
-        start_time = time
-        end_time = start_time + (4 * ACCURACY) / bar[note_index][1]
-
-        start_count = 0
-        end_count = 0
-
-        note_index += 1
-
-      time += 1
-      beat += 1
+        pitch_scores[x] += abs(score - 1)
   
   for x, g in enumerate(ge):
-    average_ratio = sum_ratios[x] / note_count
-    accuracy = math.pow(2, -15 * average_ratio)
+    average_ratio = duration_ratios[x] / note_count
+    duration_accuracy = 0.5 * math.pow(2, -15 * average_ratio)
 
-    weighted_accuracy = note_count * accuracy
+    average_pitch_accuracy = pitch_scores[x] / float(note_count)
+    pitch_accuracy = 0.5 * math.pow(2, -15 * average_pitch_accuracy)
 
-    fitness = (weighted_accuracy - extra_notes[x] + pitch_scores[x]) / note_count
-
-    fitness -= 500 * read_too_many[x]
+    fitness = duration_accuracy + pitch_accuracy
 
     ge[x].fitness = fitness
   
@@ -184,7 +107,7 @@ def run(config_file: str):
   stats = neat.StatisticsReporter()
   population.add_reporter(stats)
 
-  winner = population.run(eval_fitness, 100)
+  winner = population.run(eval_fitness, 200)
 
   print(winner)
   net = neat.nn.FeedForwardNetwork.create(winner, config)
