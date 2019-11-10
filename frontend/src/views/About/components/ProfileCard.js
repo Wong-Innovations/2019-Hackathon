@@ -8,14 +8,21 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 
+import { faFacebook, faInstagram, faTwitter, faGithub } from '@fortawesome/free-brands-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
+import { AppBar, Toolbar, Hidden, IconButton, Tooltip } from '@material-ui/core';
+
 const useStyles = makeStyles({
   card: {
-    maxWidth: 345,
+    maxWidth: 300,
+
   },
 });
 
-export default function ProfileCard() {
+export default function ProfileCard(props) {
   const classes = useStyles();
+
 
   return (
     <Card className={classes.card}>
@@ -23,27 +30,35 @@ export default function ProfileCard() {
         <CardMedia
           component="img"
           alt="Contemplative Reptile"
-          height="140"
-          image="/static/images/cards/contemplative-reptile.jpg"
+          height="250"
+          image={props.src}
           title="Contemplative Reptile"
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">
-            Lizard
+            {props.name}
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
-            Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging
-            across all continents except Antarctica
+            {props.title}
           </Typography>
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <Button size="small" color="primary">
-          Share
-        </Button>
-        <Button size="small" color="primary">
-          Learn More
-        </Button>
+        <Tooltip title="Follow Me On GitHub!" aria-label="Star Us On GitHub!">
+          <a href="https://github.com/Wong-Innovations/2019-Hackathon" style={{ color: "black" }}>
+            <FontAwesomeIcon size="2x" icon={faGithub} style={{ marginLeft: "20px" }} />
+          </a>
+        </Tooltip>
+        <Tooltip title="Find Me On Facebook!" aria-label="Star Us On GitHub!">
+          <a href="https://github.com/Wong-Innovations/2019-Hackathon" style={{ color: "black" }}>
+            <FontAwesomeIcon size="2x" icon={faFacebook} style={{ marginLeft: "20px" }} />
+          </a>
+        </Tooltip>
+        <Tooltip title="Follow My Twitter!" aria-label="Star Us On GitHub!">
+          <a href="https://github.com/Wong-Innovations/2019-Hackathon" style={{ color: "black" }}>
+            <FontAwesomeIcon size="2x" icon={faTwitter} style={{ marginLeft: "20px" }} />
+          </a>
+        </Tooltip>
       </CardActions>
     </Card>
   );

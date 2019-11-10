@@ -1,4 +1,5 @@
 import React from 'react';
+import SearchBanner from './components'
 
 //import { Route, Link, BrowserRouter as Router } from 'react-router-dom'
 
@@ -6,7 +7,7 @@ import React from 'react';
 function Help() {
     return (
         <div>
-            Help
+            <SearchBanner />
         </div>
     );
 }

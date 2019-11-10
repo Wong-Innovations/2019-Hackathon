@@ -1,11 +1,18 @@
 import React, { Component } from 'react';
-import OpenSheetMusicDisplay from '../../../lib/OpenSheetMusicDisplay'
+import OpenSheetMusicDisplay from '../../../lib/OpenSheetMusicDisplay';
 
 class SheetMusicDisplay extends Component {
+
     constructor(props) {
         super(props);
-        // Don't call this.setState() here!
-        this.state = { file: "MuzioClementi_SonatinaOpus36No1_Part2.xml" };
+
+        this.state = {file: "music/MuzioClementi_SonatinaOpus36No1_Part2.xml"};
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const sheet = urlParams.get('sheetname');
+        if (sheet) {
+            this.state = {file: `music/${sheet}.xml`};
+        }
     }
 
     handleClick(event) {
@@ -15,7 +22,7 @@ class SheetMusicDisplay extends Component {
 
     render() {
         return (
-            <div>
+            <div style={{height: "450px", overflow: "hidden"}}>
                 <OpenSheetMusicDisplay file={this.state.file} />
             </div>
         );
