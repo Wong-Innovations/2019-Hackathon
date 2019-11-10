@@ -9,6 +9,11 @@ from mingus.containers import Bar
 import mingus.core.value as value
 from random import choice
 import pickle
+import test_song
+
+#pickle_IN = open("test_song.pickle")
+#TRACK = pickle.load(pickle_IN)
+#pickle_IN.close()
 
 def generate_song(difficulty: float) -> List[Bar]:
   song = []
@@ -21,7 +26,7 @@ def generate_song(difficulty: float) -> List[Bar]:
 def generate_bar(difficulty: float):
   some_bar = Bar('C', (4, 4))
 
-  values = [value.whole, value.half, value.quarter, value.dots(value.half), value.eighth, value.dots(value.quarter), value.sixteenth, value.dots(value.eighth), value.thirty_second, value.dots(value.sixteenth)]
+  values = [value.whole, value.half, value.quarter, value.dots(value.half), value.eighth, value.dots(value.quarter), value.sixteenth, value.dots(value.eighth), value.quarter, value.dots(value.quarter)]
 
   actual_values = []
 
@@ -50,7 +55,10 @@ def eval_fitness(genomes, config, difficulty=10):
   pitch_scores = []
   duration_ratios = []
 
-  song = generate_song(difficulty)
+  # song = generate_song(difficulty)
+  track = test_song.song
+
+  song = track.bars
 
   for _, g in genomes:
     net = neat.nn.FeedForwardNetwork.create(g, config)
@@ -109,6 +117,8 @@ def run(config_file: str):
   population.add_reporter(stats)
 
   winner = population.run(eval_fitness, 500)
+
+  winner
 
   some_input = input("Save winner? ")
   if some_input == 'yes':
