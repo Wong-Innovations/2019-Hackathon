@@ -8,6 +8,7 @@ from mingus.containers import Note
 from mingus.containers import Bar
 import mingus.core.value as value
 from random import choice
+import pickle
 
 def generate_song(difficulty: float) -> List[Bar]:
   song = []
@@ -43,13 +44,13 @@ def generate_bar(difficulty: float):
 
 ACCURACY = 100
 
-def eval_fitness(genomes, config):
+def eval_fitness(genomes, config, difficulty=10):
   nets = []
   ge = []
   pitch_scores = []
   duration_ratios = []
 
-  song = generate_song(5)
+  song = generate_song(difficulty)
 
   for _, g in genomes:
     net = neat.nn.FeedForwardNetwork.create(g, config)
@@ -107,11 +108,32 @@ def run(config_file: str):
   stats = neat.StatisticsReporter()
   population.add_reporter(stats)
 
-  winner = population.run(eval_fitness, 200)
+  winner = population.run(eval_fitness, 500)
 
-  print(winner)
-  net = neat.nn.FeedForwardNetwork.create(winner, config)
-  print(net)
+  some_input = input("Save winner? ")
+  if some_input == 'yes':
+    try:
+      pickle_in = open("saved_winners.pickle", "rb")
+      current = pickle.load(pickle_in)
+      pickle_in.close()
+    except FileNotFoundError:
+      current = None
+
+    if current == None:
+      current = []
+
+    current.append(winner)
+
+    pickle_out = open("saved_winners.pickle", "wb")
+
+    pickle.dump(current, pickle_out)
+    pickle_out.close()
+  
+  some_input = input("Display winners? ")
+  if some_input == 'yes':
+    pickle_in = open("saved_winners.pickle", "rb")
+    them = pickle.load(pickle_in)
+    print(them)
 
 def pitch_score(level: int, pitch_output):
   expected = expected_pitch_output(level)
