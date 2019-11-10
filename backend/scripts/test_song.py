@@ -48,12 +48,6 @@ for _ in range(16):
 song.add_bar(bar)
 bar = Bar()
 
-for _ in range(32):
-  bar.place_notes(Note('C', 4), value.thirty_second)
-
-song.add_bar(bar)
-bar = Bar()
-
 bar.place_notes(Note('E', 4), value.quarter)
 bar.place_notes(Note('G', 4), value.quarter)
 bar.place_notes(Note('C', 4), value.dots(value.quarter))
@@ -74,15 +68,6 @@ bar.place_notes(Note('D', 4), value.quarter)
 bar.place_notes(Note('E', 4), value.quarter)
 bar.place_notes(Note('F', 4), value.dots(value.eighth))
 bar.place_notes(Note('E', 4), value.sixteenth)
-
-song.add_bar(bar)
-bar = Bar()
-
-bar.place_notes(Note('E', 4), value.dots(value.half))
-bar.place_notes(Note('F', 4), value.sixteenth)
-bar.place_notes(Note('A', 4), value.sixteenth)
-bar.place_notes(Note('G', 4), value.dots(value.sixteenth))
-bar.place_notes(Note('G', 4), value.thirty_second)
 
 song.add_bar(bar)
 bar = Bar()

@@ -7,11 +7,11 @@
 		</encoding>
 	</identification>
 	<part-list>
-		<score-part id="53415280">
+		<score-part id="61148528">
 			<part-name>Untitled</part-name>
 		</score-part>
 	</part-list>
-	<part id="53415280">
+	<part id="61148528">
 		<measure number="1">
 			<attributes>
 				<divisions>4</divisions>
@@ -327,275 +327,6 @@
 		</measure>
 		<measure number="6">
 			<attributes>
-				<divisions>128.0</divisions>
-				<key>
-					<fifths>0</fifths>
-					<mode>major</mode>
-				</key>
-				<time>
-					<beats>4</beats>
-					<beat-type>4</beat-type>
-				</time>
-			</attributes>
-			<note>
-				<pitch>
-					<step>C</step>
-					<octave>4</octave>
-				</pitch>
-				<duration>16</duration>
-				<type>32th</type>
-			</note>
-			<note>
-				<pitch>
-					<step>C</step>
-					<octave>4</octave>
-				</pitch>
-				<duration>16</duration>
-				<type>32th</type>
-			</note>
-			<note>
-				<pitch>
-					<step>C</step>
-					<octave>4</octave>
-				</pitch>
-				<duration>16</duration>
-				<type>32th</type>
-			</note>
-			<note>
-				<pitch>
-					<step>C</step>
-					<octave>4</octave>
-				</pitch>
-				<duration>16</duration>
-				<type>32th</type>
-			</note>
-			<note>
-				<pitch>
-					<step>C</step>
-					<octave>4</octave>
-				</pitch>
-				<duration>16</duration>
-				<type>32th</type>
-			</note>
-			<note>
-				<pitch>
-					<step>C</step>
-					<octave>4</octave>
-				</pitch>
-				<duration>16</duration>
-				<type>32th</type>
-			</note>
-			<note>
-				<pitch>
-					<step>C</step>
-					<octave>4</octave>
-				</pitch>
-				<duration>16</duration>
-				<type>32th</type>
-			</note>
-			<note>
-				<pitch>
-					<step>C</step>
-					<octave>4</octave>
-				</pitch>
-				<duration>16</duration>
-				<type>32th</type>
-			</note>
-			<note>
-				<pitch>
-					<step>C</step>
-					<octave>4</octave>
-				</pitch>
-				<duration>16</duration>
-				<type>32th</type>
-			</note>
-			<note>
-				<pitch>
-					<step>C</step>
-					<octave>4</octave>
-				</pitch>
-				<duration>16</duration>
-				<type>32th</type>
-			</note>
-			<note>
-				<pitch>
-					<step>C</step>
-					<octave>4</octave>
-				</pitch>
-				<duration>16</duration>
-				<type>32th</type>
-			</note>
-			<note>
-				<pitch>
-					<step>C</step>
-					<octave>4</octave>
-				</pitch>
-				<duration>16</duration>
-				<type>32th</type>
-			</note>
-			<note>
-				<pitch>
-					<step>C</step>
-					<octave>4</octave>
-				</pitch>
-				<duration>16</duration>
-				<type>32th</type>
-			</note>
-			<note>
-				<pitch>
-					<step>C</step>
-					<octave>4</octave>
-				</pitch>
-				<duration>16</duration>
-				<type>32th</type>
-			</note>
-			<note>
-				<pitch>
-					<step>C</step>
-					<octave>4</octave>
-				</pitch>
-				<duration>16</duration>
-				<type>32th</type>
-			</note>
-			<note>
-				<pitch>
-					<step>C</step>
-					<octave>4</octave>
-				</pitch>
-				<duration>16</duration>
-				<type>32th</type>
-			</note>
-			<note>
-				<pitch>
-					<step>C</step>
-					<octave>4</octave>
-				</pitch>
-				<duration>16</duration>
-				<type>32th</type>
-			</note>
-			<note>
-				<pitch>
-					<step>C</step>
-					<octave>4</octave>
-				</pitch>
-				<duration>16</duration>
-				<type>32th</type>
-			</note>
-			<note>
-				<pitch>
-					<step>C</step>
-					<octave>4</octave>
-				</pitch>
-				<duration>16</duration>
-				<type>32th</type>
-			</note>
-			<note>
-				<pitch>
-					<step>C</step>
-					<octave>4</octave>
-				</pitch>
-				<duration>16</duration>
-				<type>32th</type>
-			</note>
-			<note>
-				<pitch>
-					<step>C</step>
-					<octave>4</octave>
-				</pitch>
-				<duration>16</duration>
-				<type>32th</type>
-			</note>
-			<note>
-				<pitch>
-					<step>C</step>
-					<octave>4</octave>
-				</pitch>
-				<duration>16</duration>
-				<type>32th</type>
-			</note>
-			<note>
-				<pitch>
-					<step>C</step>
-					<octave>4</octave>
-				</pitch>
-				<duration>16</duration>
-				<type>32th</type>
-			</note>
-			<note>
-				<pitch>
-					<step>C</step>
-					<octave>4</octave>
-				</pitch>
-				<duration>16</duration>
-				<type>32th</type>
-			</note>
-			<note>
-				<pitch>
-					<step>C</step>
-					<octave>4</octave>
-				</pitch>
-				<duration>16</duration>
-				<type>32th</type>
-			</note>
-			<note>
-				<pitch>
-					<step>C</step>
-					<octave>4</octave>
-				</pitch>
-				<duration>16</duration>
-				<type>32th</type>
-			</note>
-			<note>
-				<pitch>
-					<step>C</step>
-					<octave>4</octave>
-				</pitch>
-				<duration>16</duration>
-				<type>32th</type>
-			</note>
-			<note>
-				<pitch>
-					<step>C</step>
-					<octave>4</octave>
-				</pitch>
-				<duration>16</duration>
-				<type>32th</type>
-			</note>
-			<note>
-				<pitch>
-					<step>C</step>
-					<octave>4</octave>
-				</pitch>
-				<duration>16</duration>
-				<type>32th</type>
-			</note>
-			<note>
-				<pitch>
-					<step>C</step>
-					<octave>4</octave>
-				</pitch>
-				<duration>16</duration>
-				<type>32th</type>
-			</note>
-			<note>
-				<pitch>
-					<step>C</step>
-					<octave>4</octave>
-				</pitch>
-				<duration>16</duration>
-				<type>32th</type>
-			</note>
-			<note>
-				<pitch>
-					<step>C</step>
-					<octave>4</octave>
-				</pitch>
-				<duration>16</duration>
-				<type>32th</type>
-			</note>
-		</measure>
-		<measure number="7">
-			<attributes>
 				<divisions>32.0</divisions>
 				<key>
 					<fifths>0</fifths>
@@ -640,7 +371,7 @@
 				<type>eighth</type>
 			</note>
 		</measure>
-		<measure number="8">
+		<measure number="7">
 			<attributes>
 				<divisions>32.0</divisions>
 				<key>
@@ -678,7 +409,7 @@
 				<type>eighth</type>
 			</note>
 		</measure>
-		<measure number="9">
+		<measure number="8">
 			<attributes>
 				<divisions>64.0</divisions>
 				<key>
@@ -730,61 +461,6 @@
 				</pitch>
 				<duration>16</duration>
 				<type>16th</type>
-			</note>
-		</measure>
-		<measure number="10">
-			<attributes>
-				<divisions>128.0</divisions>
-				<key>
-					<fifths>0</fifths>
-					<mode>major</mode>
-				</key>
-				<time>
-					<beats>4</beats>
-					<beat-type>4</beat-type>
-				</time>
-			</attributes>
-			<note>
-				<pitch>
-					<step>E</step>
-					<octave>4</octave>
-				</pitch>
-				<duration>256</duration>
-				<dot/>
-				<type>half</type>
-			</note>
-			<note>
-				<pitch>
-					<step>F</step>
-					<octave>4</octave>
-				</pitch>
-				<duration>32</duration>
-				<type>16th</type>
-			</note>
-			<note>
-				<pitch>
-					<step>A</step>
-					<octave>4</octave>
-				</pitch>
-				<duration>32</duration>
-				<type>16th</type>
-			</note>
-			<note>
-				<pitch>
-					<step>G</step>
-					<octave>4</octave>
-				</pitch>
-				<duration>32</duration>
-				<dot/>
-				<type>16th</type>
-			</note>
-			<note>
-				<pitch>
-					<step>G</step>
-					<octave>4</octave>
-				</pitch>
-				<duration>16</duration>
-				<type>32th</type>
 			</note>
 		</measure>
 	</part>
