@@ -2,10 +2,10 @@ import React from 'react';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/styles';
-import { Divider, Drawer } from '@material-ui/core';
+import { Drawer } from '@material-ui/core';
 
 
-import { Profile, SidebarNav, UpgradePlan } from './components';
+import { SidebarNav, UpgradePlan } from './components';
 
 // Icons 
 import MusicNoteIcon from '@material-ui/icons/MusicNote';

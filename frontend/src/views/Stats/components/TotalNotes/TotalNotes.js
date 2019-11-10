@@ -52,13 +52,13 @@ const TotalNotes = props => {
               gutterBottom
               variant="body2"
             >
-              TOTAL NOTES
+              TOTAL NOTES PLAYED
             </Typography>
             <Typography
               color="inherit"
               variant="h3"
             >
-              232,211
+              1,232,211
             </Typography>
           </Grid>
           <Grid item>
