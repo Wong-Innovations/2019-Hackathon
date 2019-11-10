@@ -24,7 +24,7 @@ def generate_bar(difficulty: float):
 
   actual_values = []
 
-  pitches = [None, Note("A", 3), Note("B", 3), Note("C", 4), Note("D", 4), Note("E", 4), Note("F", 4), Note("G", 4), Note("A", 4), Note("B", 4), Note("C", 5), Note("D", 5), Note("E", 5),
+  pitches = [Note("A", 3), Note("B", 3), Note("C", 4), Note("D", 4), Note("E", 4), Note("F", 4), Note("G", 4), Note("A", 4), Note("B", 4), Note("C", 5), Note("D", 5), Note("E", 5),
              Note("F", 5), Note("G", 5), Note("A", 5), Note("B", 5), Note("C", 6)]
 
   if difficulty >= 10:
@@ -33,22 +33,27 @@ def generate_bar(difficulty: float):
     index = math.ceil(difficulty)
     actual_values = values[0:index]
   
-  
   while some_bar.place_notes(choice(pitches), choice(actual_values)):
     pass
 
   if not some_bar.is_full():
-    some_bar.place_notes(None, some_bar.value_left)
+    some_bar.place_notes(choice(pitches), some_bar.value_left())
+  
+  return some_bar
 
 ACCURACY = 100
 
 def eval_fitness(genomes, config):
   nets = []
   ge = []
-  ge_bars = []
-  ge_note = []
+  ge_bar = []
+  ge_note_index = []
   sum_ratios = []
   extra_notes = []
+  read_too_many = []
+  pitch_scores = []
+
+  song = generate_song(5)
 
   for _, g in genomes:
     net = neat.nn.FeedForwardNetwork.create(g, config)
@@ -56,84 +61,118 @@ def eval_fitness(genomes, config):
     ge.append(g)
     sum_ratios.append(0)
     extra_notes.append(0)
-    ge_bars.append(None)
-    ge_note.append(None)
-  
-  song = generate_song(0)
-  executions = ACCURACY * 4 * 16
-  
-  beat_time = 0
-  time = 0
-  beat = 0
-  start_count = 0
-  end_count = 0
-  bar = song[0]
-  bar_index = 0
-  note_index = 0
-  note_value = bar[note_index][1]
-  start_time = 0
-  end_time = start_time + ((1 / note_value) * 4 * ACCURACY)
-  reset_start_time = False
-  for _ in range(executions):
-    if reset_start_time:
-      note_index += 1
-      note_value = bar[note_index][1]
-      start_time = time
-      end_time = start_time + ((1 / note_value) * 4 * ACCURACY)
-      start_count = 0
-      end_count = 0
+    read_too_many.append(0)
+    ge_bar.append(None)
+    ge_note_index.append(None)
+    pitch_scores.append(0)
 
-      reset_start_time = False
+  note_count = 0
+  for bar_class in song:
+    bar = bar_class.bar
+    note_count_bar = len(bar)
+    note_count += note_count_bar
 
-    if beat_time == 100:
-      beat_time = 0
-      beat += 1
+    note_index = 0
 
-    for x, g in enumerate(ge):
-      if ge_bars[x] == None:
-        ge_bars[x] = song[0]
-      
-      if ge_note[x] == None:
-        ge_note[x] = 0
-      
-      note_class = Note(ge_note[x][2])
-      note_level = notes.note_to_int(note_class.name) + (note_class.octave * 11)
+    start_time = 0
+    end_time = start_time + ((4 * ACCURACY) / bar[0][1])
 
-      output = nets[x].activate((ge_note[x][1], note_level, beat_time, 4, 4))
+    for x, _ in enumerate(ge):
+      ge_bar[x] = bar
+      ge_note_index[x] = 0
 
-      if output[1] > 0.5:
-        if start_count == end_count:
-          start_count += 1
+    start_count = 0
+    end_count = 0
 
-          if not ((start_count >= 2) and (end_count >= 2)):
-            if abs(time - start_time) < abs(time - end_time):
-              sum_ratios[x] += abs(time - start_time) / abs(end_time - start_time)
-            else:
-              sum_ratios[x] += abs(time - end_time) / abs(end_time - start_time)
-          else:
-            extra_notes[x] += 1
-        elif start_count > end_count:
-          end_count += 1
+    read_forward = False
 
-          if not ((start_count >= 2) and (end_count >= 2)):
-            if abs(time - start_time) < abs(time - end_time):
-              sum_ratios[x] += abs(time - start_time) / abs(end_time - start_time)
-            else:
-              sum_ratios[x] += abs(time - end_time) / abs(end_time - start_time)
-          else:
-            extra_notes[x] += 1
+    time = 0
+    beat = 0
+    beat_time = 0
+    for _ in range(4 * ACCURACY):
+      for x, _ in enumerate(ge):
+        if ge_note_index[x] >= note_count_bar:
+          read_too_many[x] += 1
         else:
-          raise NameError("You fucking donkey")
-    
-    if time == end_time:
-      reset_start_time = True
-    
-    if time == 4 * ACCURACY:
-      time = 0
-      beat_time = 0
-      beat = 0
-      bar_index += 1
-      bar = song[bar_index]
+          note_class = Note(bar[ge_note_index[x]][2][0])
+          note_level = notes.note_to_int(note_class.name) + 11 * note_class.octave
+
+          output = nets[x].activate((bar[ge_note_index[x]][1], note_level, beat_time, 4, 4, read_forward))
+          if read_forward:
+            ge_note_index[x] += 1
+            read_forward = False
+
+          if output[0] > 0.5:
+            pitch_output = []
+            for neuron in output[1:]:
+              pitch_output.append(neuron)
+            
+            score = pitch_score(note_level, pitch_output) - 1
+
+            pitch_scores[x] += score
+
+            start_note = start_count == end_count
+            end_note = start_count > end_count
+
+            if start_note:
+              start_count += 1
+            elif end_note:
+              end_count += 1
+            else:
+              raise Exception("You fucking donkey")
+
+            distance = 0
+            from_begin = abs(time - start_time)
+            from_end = abs(time - end_time)
+            note_length = end_time - start_time
+
+            if from_begin < from_end:
+              distance = from_begin
+            else:
+              distance = from_end
+
+            multiple_notes = start_count >= 2 and end_count >= 2
+
+            if not multiple_notes:
+              ratio = float(distance) / float(note_length)
+
+              sum_ratios[x] += ratio
+            else:
+              extra_notes[x] += 1
+          
+          if output[18] > 0.5:
+            read_forward = True
+
+        if time % ACCURACY == 0:
+          beat += 1
+
+          beat_time = 0
+        
+        if time == end_time:
+          note_index += 1
+
+          if note_index >= note_count_bar:
+            raise Exception("You fucking donkey")
+
+          start_time = time
+          end_time = start_time + (4 * ACCURACY) / bar[note_index][1]
+
+          start_count = 0
+          end_count = 0
+
+        time += 1
+        beat += 1
+  
+  for x, g in enumerate(ge):
+    average_ratio = sum_ratios[x] / note_count
+    accuracy = math.pow(2, -15 * average_ratio)
+
+    weighted_accuracy = note_count * accuracy
+
+    fitness = (weighted_accuracy - extra_notes[x]) / note_count
+
+    ge[x].fitness = fitness
+  
 
 def run(config_file: str):
   config = neat.config.Config(neat.DefaultGenome, neat.DefaultReproduction, 
@@ -146,7 +185,38 @@ def run(config_file: str):
   stats = neat.StatisticsReporter()
   population.add_reporter(stats)
 
-  population.run(eval_fitness, 100)
+  winner = population.run(eval_fitness, 100)
+
+  print(winner)
+  net = neat.nn.FeedForwardNetwork.create(winner, config)
+  print(net)
+
+def pitch_score(level: int, pitch_output):
+  expected = expected_pitch_output(level)
+
+  difference_vector = []
+  for actual, expected in zip(pitch_output, expected):
+    difference = (actual - expected) * (actual - expected)
+
+    difference_vector.append(difference)
+  
+  sum = 0
+  for i in difference_vector:
+    sum += i
+  
+  return sum
+
+def expected_pitch_output(level: int):
+  index = level - 41
+
+  vector = [0] * 17
+
+  print(vector)
+  print(index)
+
+  vector[index] = 1
+
+  return vector
 
 if __name__ == "__main__":
   local_dir = os.path.dirname(__file__)
