@@ -76,6 +76,10 @@ test_song_pickle = open("test_song.pickle", "wb")
 pickle.dump(song, test_song_pickle)
 test_song_pickle.close()
 
+test_song_pickle = open("test_song.pickle", "rb")
+a_pickle = pickle.load(test_song_pickle)
+test_song_pickle.close()
+
 test_song_xml = musicxml.from_Track(song)
 
 test_song_xml_file = open("test_song.musicxml", "w")
