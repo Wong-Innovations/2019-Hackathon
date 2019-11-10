@@ -13,6 +13,7 @@
     "chart.js": "^2.9.2",
     "clsx": "^1.0.4",
     "history": "^4.10.1",
+    "midi-sounds-react": "^1.2.54",
     "moment": "^2.24.0",
     "opensheetmusicdisplay": "^0.7.1",
     "prop-types": "^15.7.2",
@@ -24,7 +25,8 @@
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.2.0",
     "recompose": "^0.30.0",
-    "underscore": "^1.9.1"
+    "underscore": "^1.9.1",
+    "webmidi": "^2.5.1"
   },
   "scripts": {
     "start": "react-scripts start",
