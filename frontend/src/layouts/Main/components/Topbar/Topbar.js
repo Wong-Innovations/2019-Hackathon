@@ -3,10 +3,10 @@ import { Link as RouterLink } from 'react-router-dom';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/styles';
-import { AppBar, Toolbar, Badge, Hidden, IconButton } from '@material-ui/core';
+import { AppBar, Toolbar, Hidden, IconButton, Tooltip } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
-import NotificationsIcon from '@material-ui/icons/NotificationsOutlined';
-import InputIcon from '@material-ui/icons/Input';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faFacebook, faInstagram, faTwitter, faGithub } from '@fortawesome/free-brands-svg-icons';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -25,8 +25,6 @@ const Topbar = props => {
 
   const classes = useStyles();
 
-  const [notifications] = useState([]);
-
   return (
     <AppBar
       {...rest}
@@ -36,27 +34,32 @@ const Topbar = props => {
         <RouterLink to="/">
           <img
             alt="Logo"
-            src="/images/logos/Lendu_logo.png"
+            src="/SheetLearnLogo.png"
             width="200px"
           />
         </RouterLink>
         <div className={classes.flexGrow} />
         <Hidden mdDown>
-          <IconButton color="inherit">
-            <Badge
-              badgeContent={notifications.length}
-              color="primary"
-              variant="dot"
-            >
-              <NotificationsIcon />
-            </Badge>
-          </IconButton>
-          <IconButton
-            className={classes.signOutButton}
-            color="inherit"
-          >
-            <InputIcon />
-          </IconButton>
+          <Tooltip title="Share Us On Facebook!" aria-label="Share Us On Facebook!">
+            <a href="https://facebook.com" style={{color: "white"}}>
+              <FontAwesomeIcon size="2x" icon={faFacebook} style={{marginLeft:"20px"}} />
+            </a>
+          </Tooltip>
+          <Tooltip title="Share Us On Twitter!" aria-label="Share Us On Twitter!">
+            <a href="https://twitter.com" style={{color: "white"}}>
+              <FontAwesomeIcon size="2x" icon={faTwitter} style={{marginLeft:"20px"}} />
+            </a>
+          </Tooltip>
+          <Tooltip title="Share Us On Insta!" aria-label="Share Us On Insta!">
+            <a href="https://instagram.com" style={{color: "white"}}>
+              <FontAwesomeIcon size="2x" icon={faInstagram} style={{marginLeft:"20px"}} />
+            </a>
+          </Tooltip>
+          <Tooltip title="Star Us On GitHub!" aria-label="Star Us On GitHub!">
+            <a href="https://github.com/Wong-Innovations/2019-Hackathon" style={{color: "white"}}>
+              <FontAwesomeIcon size="2x" icon={faGithub} style={{marginLeft:"20px"}} />
+            </a>
+          </Tooltip>
         </Hidden>
         <Hidden lgUp>
           <IconButton
