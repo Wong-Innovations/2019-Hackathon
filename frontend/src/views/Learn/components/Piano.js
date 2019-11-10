@@ -4,6 +4,7 @@ import { Piano, KeyboardShortcuts, MidiNumbers } from 'react-piano';
 //import 'react-piano/dist/styles.css';
 // import * as WebMidi from "webmidi";
 import MIDISounds from 'midi-sounds-react';
+const Iterator = require("musicxml-iterator");
 
 const styles = (theme => ({
     center: {
@@ -22,16 +23,27 @@ class PianoComponent extends Component {
 		super(props);
 		this.midiNotes=[];
 		this.state = {
-			selectedInstrument: 4
-			,status:'?'
-        };
-        this.firstNote = MidiNumbers.fromNote('a3');
-        this.lastNote = MidiNumbers.fromNote('c6');
-        this.keyboardShortcuts = KeyboardShortcuts.create({
-            firstNote: this.firstNote,
-            lastNote: this.lastNote,
-            keyboardConfig: KeyboardShortcuts.HOME_ROW,
-        });
+			selectedInstrument: 4,
+			status:'?',
+			file: "music/MuzioClementi_SonatinaOpus36No1_Part2.xml"
+		};
+		this.firstNote = MidiNumbers.fromNote('a3');
+		this.lastNote = MidiNumbers.fromNote('c6');
+		this.keyboardShortcuts = KeyboardShortcuts.create({
+				firstNote: this.firstNote,
+				lastNote: this.lastNote,
+				keyboardConfig: KeyboardShortcuts.HOME_ROW,
+		});
+		const urlParams = new URLSearchParams(window.location.search);
+		const sheet = urlParams.get('sheetname');
+		if (sheet) {
+				this.state = { ...this.state , file: `music/${sheet}.xml`};
+		}
+		fetch(this.state.file)
+			.then((r) => r.text())
+			.then(text  => {
+				this.i = Iterator(text);;
+			})
 	}
 	componentDidMount() {
 		this.envelopes=[];				
@@ -123,15 +135,10 @@ class PianoComponent extends Component {
                 className={classes.center}
                 noteRange={{ first: this.firstNote, last: this.lastNote }}
                 playNote={(midiNumber) => {
-                    console.log(midiNumber);
-                    if (this.props.midiPresent === false) {
-                        this.keyDown(midiNumber);
-                    }
+									this.keyDown(midiNumber);
                 }}
                 stopNote={(midiNumber) => {
-                    if (!this.props.midiPresent === false) {
-                        this.keyUp(midiNumber);
-                    }
+									this.keyUp(midiNumber);
                 }}
                 width={1000}
                 keyboardShortcuts={this.keyboardShortcuts}
@@ -148,24 +155,4 @@ class PianoComponent extends Component {
   }
 };
 
-export default withStyles(styles)(PianoComponent); // function PianoComponent(props) {
-//     const classes = useStyles();
-//     const firstNote = MidiNumbers.fromNote('a3');
-//     const lastNote = MidiNumbers.fromNote('c6');
-//     const keyboardShortcuts = KeyboardShortcuts.create({
-//         firstNote: firstNote,
-//         lastNote: lastNote,
-//         keyboardConfig: KeyboardShortcuts.HOME_ROW,
-//     });
-
-//     return (
-//         <div>
-            
-//             <MIDISounds
-//                 ref={(ref) => (this.midiSounds = ref)} 
-//                 appElementName="root" 
-//                 instruments={[4]} 
-// 			/>
-//         </div>
-//     );
-// }
+export default withStyles(styles)(PianoComponent); 
